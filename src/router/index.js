@@ -56,6 +56,18 @@ export const constantRoutes = [
   },
 
   {
+    path: '/safetyMonitor',
+    component: Layout,
+    redirect: '/safetyMonitor',
+    children: [{
+      path: 'safetyMonitor',
+      name: '安全监测',
+      component: () => import('@/views/safetyMonitor/index'),
+      meta: { title: '安全监测', icon: 'dashboard' }
+    }]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',
