@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
-// import { getToken } from '@/utils/auth'
+import { getToken } from '@/utils/auth'
 
 console.log(process.env)
 const baseUrl = process.env.NODE_ENV == 'development' ? 'http://localhost:3000/' : 'http://123.57.51.103:8088/'
@@ -23,7 +23,7 @@ service.interceptors.request.use(
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
-      // config.headers['X-Token'] = getToken()
+      config.headers['X-Token'] = getToken()
     }
     return config
   },
