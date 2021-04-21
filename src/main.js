@@ -12,6 +12,11 @@ import App from './App'
 import store from './store'
 import router from './router'
 
+import SocketIO from "socket.io-client"
+
+import VueSocketIO from 'vue-socket.io'
+// import soket from '@/utils/soket'
+
 import '@/icons' // icon
 import '@/permission' // permission control
 
@@ -27,6 +32,14 @@ if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
   mockXHR()
 }
+
+// Vue.use(new VueSocketIO({
+//       debug: true,
+//       connection: SocketIO ('ws://127.0.0.1:3000'),
+// }))
+// Vue.use(soket, {
+//   path: 'ws://127.0.0.1:8000'
+// })
 
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })

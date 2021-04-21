@@ -46,26 +46,70 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
-    }]
+    redirect: '/safetyMonitor/area',
+    name: '安全监控中心',
+    meta: { title: '安全监控中心', icon: 'dashboard' },
+    children: [
+      {
+        path: '/safetyMonitor/area',
+        name: '区域安全监控',
+        component: () => import('@/views/safetyMonitor/index'),
+        meta: { title: '区域安全监控', icon: 'dashboard' }
+      },
+      {
+        path: '/safetyMonitor/electricSafety',
+        name: '配电监测',
+        component: () => import('@/views/electricSafety/index'),
+        meta: { title: '配电监测', icon: 'dashboard' }
+      },
+      {
+        path: '/safetyMonitor/warning',
+        name: '报警统计分析',
+        component: () => import('@/views/warning/index'),
+        meta: { title: '报警统计分析', icon: 'dashboard' }
+      },
+      {
+        path: '/safetyMonitor/advanceWarning',
+        name: '预告警管理',
+        component: () => import('@/views/advanceWarning/index'),
+        meta: { title: '预告警管理', icon: 'dashboard' }
+      },
+    ]
   },
 
   {
-    path: '/safetyMonitor',
+    path: '/energy',
     component: Layout,
-    redirect: '/safetyMonitor',
-    children: [{
-      path: 'safetyMonitor',
-      name: '安全监测',
-      component: () => import('@/views/safetyMonitor/index'),
-      meta: { title: '安全监测', icon: 'dashboard' }
-    }]
+    name: '能源管理中心',
+    redirect: '/energy/comprehensiveEnergy',
+    meta: { title: '预告警管理', icon: 'eye' },
+    children: [
+      {
+        path: '/energy/comprehensiveEnergy',
+        name: '综合用能管理',
+        component: () => import('@/views/comprehensiveEnergy/index'),
+        meta: { title: '综合用能管理', icon: 'eye' }
+      },
+      {
+        path: '/energy/electricityManagement',
+        name: '用电管理',
+        component: () => import('@/views/electricityManagement/index'),
+        meta: { title: '用电管理', icon: 'eye' }
+      }
+    ]
   },
+
+  // {
+  //   path: '/dashboard',
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   children: [{
+  //     path: 'dashboard',
+  //     name: 'Dashboard',
+  //     component: () => import('@/views/dashboard/index'),
+  //     meta: { title: 'Dashboard', icon: 'dashboard' }
+  //   }]
+  // },
 
   {
     path: '/example',
