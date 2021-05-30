@@ -82,19 +82,19 @@ export const constantRoutes = [
     component: Layout,
     name: '能源管理中心',
     redirect: '/energy/comprehensiveEnergy',
-    meta: { title: '预告警管理', icon: 'eye' },
+    meta: { title: '预告警管理', icon: 'el-icon-s-opportunity' },
     children: [
       {
         path: '/energy/comprehensiveEnergy',
         name: '综合用能管理',
         component: () => import('@/views/comprehensiveEnergy/index'),
-        meta: { title: '综合用能管理', icon: 'eye' }
+        meta: { title: '综合用能管理', icon: 'el-icon-s-opportunity' }
       },
       {
         path: '/energy/electricityManagement',
         name: '用电管理',
         component: () => import('@/views/electricityManagement/index'),
-        meta: { title: '用电管理', icon: 'eye' }
+        meta: { title: '用电管理', icon: 'el-icon-s-opportunity' }
       }
     ]
   },

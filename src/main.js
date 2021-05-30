@@ -19,6 +19,10 @@ import VueSocketIO from 'vue-socket.io'
 
 import '@/icons' // icon
 import '@/permission' // permission control
+import { options } from 'runjs'
+
+import * as echarts from 'echarts'
+Vue.prototype.$echarts = echarts
 
 /**
  * If you don't want to use mock-server
@@ -33,10 +37,10 @@ if (process.env.NODE_ENV === 'production') {
   mockXHR()
 }
 
-// Vue.use(new VueSocketIO({
-//       debug: true,
-//       connection: SocketIO ('ws://127.0.0.1:3000'),
-// }))
+Vue.use(new VueSocketIO({
+  debug: true,
+  connection: SocketIO('http://127.0.0.1:8000')
+}))
 // Vue.use(soket, {
 //   path: 'ws://127.0.0.1:8000'
 // })
