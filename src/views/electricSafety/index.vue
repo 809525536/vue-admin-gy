@@ -62,7 +62,7 @@
           <el-button type="primary" @click="searchDevice">选择设备</el-button>
       </el-form>
     </el-dialog>
-    <el-dialog title="查询设备" :visible.sync="searchDeviceVisible" width="80%">
+    <el-dialog title="查询设备" :visible.sync="searchDeviceVisible" width="80%" top="10vh">
       <el-table
         :data="deviceList"
         stripe
@@ -77,7 +77,7 @@
         <el-table-column
           prop="name"
           label="设备名称"
-          width="300"
+          width="260"
         >
         </el-table-column>
         <el-table-column
@@ -114,9 +114,11 @@
         </el-table-column>
       </el-table>
       <el-pagination
+        class="fenye"
         background
         layout="prev, pager, next"
-        :total="1000">
+        @current-change="handleCurrentChange"
+        :total="deviceTotal">
       </el-pagination>
     </el-dialog>
   </div>
@@ -173,7 +175,7 @@ export default {
       console.log(data)
       if(data.code == 20000) {
          const {count,list } = data.data
-         this.deviceTotal = count
+         this.deviceTotal = Number(count)
          this.deviceList = list
       }
      
@@ -235,6 +237,10 @@ export default {
     searchDevice() {
       this.initDeviceList(0,10)
       this.searchDeviceVisible = true
+    },
+    handleCurrentChange(val) {
+      console.log(val)
+      this.initDeviceList(val - 1, 10)
     }
   }
 }
@@ -242,5 +248,9 @@ export default {
 <style scoped lang="scss">
   .box-card {
     margin-bottom: 20px;
+  }
+  .fenye {
+    margin-top: 20px;
+    text-align: right;
   }
 </style>
