@@ -39,3 +39,26 @@ export function getDeviceList(params) {
     params
   })
 }
+export function getdisplayList(params) {
+  return request({
+    url: '/electric/data/getdisplayList',
+    method: 'get',
+    params
+  })
+}
+
+export function bindDevice(params) {
+  return request({
+    url: '/electric/data/bindDevice',
+    method: 'get',
+    params
+  })
+}
+
+export function getDisplayId(params) {
+  return request({
+    url: '/electric/data/getDisplayId',
+    method: 'get',
+    params
+  })
+}
