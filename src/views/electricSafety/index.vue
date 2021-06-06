@@ -71,7 +71,7 @@
       >
         <el-table-column width="30">
           <template slot-scope="scope">
-            <el-radio :label="scope.row.id" v-model="selectRadio"><span></span></el-radio>
+            <el-radio :label="scope.row" v-model="deviceRadio"><span></span></el-radio>
           </template>
         </el-table-column>
         <el-table-column
@@ -138,6 +138,7 @@ export default {
         
       ],
       selectRadio: '',
+      deviceRadio: '',
       monitoringVisible: false,
       deviceVisible: false,
       searchDeviceVisible: false,
@@ -240,6 +241,7 @@ export default {
     },
     searchDevice() {
       this.initDeviceList(0,10)
+      this.deviceRadio = ''
       this.searchDeviceVisible = true
     },
     handleCurrentChange(val) {
@@ -247,7 +249,13 @@ export default {
       this.initDeviceList(val - 1, 10)
     },
     saveDevice() {
-      
+      console.log(this.deviceRadio)
+      if(!this.deviceRadio) {
+        this.$message.error('请选择设备')
+        return
+      }
+      this.formDevice.name = this.deviceRadio.name
+      this.searchDeviceVisible = false
     }
   }
 }
