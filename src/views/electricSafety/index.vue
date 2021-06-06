@@ -120,6 +120,10 @@
         @current-change="handleCurrentChange"
         :total="deviceTotal">
       </el-pagination>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="searchDeviceVisible = false">取 消</el-button>
+        <el-button type="primary" @click="saveDevice">保存</el-button>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -241,6 +245,9 @@ export default {
     handleCurrentChange(val) {
       console.log(val)
       this.initDeviceList(val - 1, 10)
+    },
+    saveDevice() {
+      
     }
   }
 }
@@ -251,6 +258,6 @@ export default {
   }
   .fenye {
     margin-top: 20px;
-    text-align: right;
+    text-align: left;
   }
 </style>
