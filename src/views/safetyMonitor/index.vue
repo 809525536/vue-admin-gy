@@ -58,6 +58,8 @@
 <script>
 // const net = require('net');
 import { getEleData } from '@/mock/index'
+import { getEleDetail } from '@/api/ele'
+import { mapGetters } from 'vuex'
 export default {
   name: "test",
   data() {
@@ -65,6 +67,11 @@ export default {
       myChart: null,
       myChart2: null
     };
+  },
+  computed: {
+    ...mapGetters([
+      'passagewayId'
+    ])
   },
   sockets: {
     connect() {
@@ -79,7 +86,8 @@ export default {
       console.log("已收到推送", res);
     },
   },
-  mounted() {
+  async mounted() {
+    console.log(this.passagewayId)
     // console.log(this.$socket)
     // this.$socket.emit('connect', function(res) {
     //   console.log(res)
@@ -92,7 +100,8 @@ export default {
     }, 3000);
     this.initChart()
     this.initData()
-    
+    const eleData = await getEleDetail({passagewayId: this.passagewayId})
+    console.log(eleData)
   },
   methods: {
     onSokentMessge(val) {

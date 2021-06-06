@@ -58,9 +58,9 @@ export const constantRoutes = [
       },
       {
         path: '/safetyMonitor/electricSafety',
-        name: '配电监测',
+        name: '用电监测点配置',
         component: () => import('@/views/electricSafety/index'),
-        meta: { title: '配电监测', icon: 'dashboard' }
+        meta: { title: '用电监测点配置', icon: 'dashboard' }
       },
       {
         path: '/safetyMonitor/warning',
