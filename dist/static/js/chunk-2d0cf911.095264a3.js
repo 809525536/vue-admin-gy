@@ -1,1 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0cf911"],{"63ec":function(n,e,t){"use strict";t.r(e);var c=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",{staticClass:"app-container"},[n._v("配电安全监测")])},a=[],s=t("2877"),i={},r=Object(s["a"])(i,c,a,!1,null,"0a995327",null);e["default"]=r.exports}}]);
