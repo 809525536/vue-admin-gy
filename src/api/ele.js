@@ -62,3 +62,10 @@ export function getDisplayId(params) {
     params
   })
 }
+export function removeDisplayId(params) {
+  return request({
+    url: '/electric/data/removeDisplayId',
+    method: 'get',
+    params
+  })
+}

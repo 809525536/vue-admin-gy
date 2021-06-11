@@ -31,16 +31,13 @@
           <el-button style="padding: 3px 0" type="text" @click="removeDevice">删除</el-button>
         </div>
       </div>
-      <!-- <el-row :gutter="10">
-        <el-col :span="8" v-for="(item, index) in deviceMapData" :key="index">
-          <el-checkbox
-            :label="item.displayId"
-            v-model="checkDeviceMapData"
-            name="display"
-          >{{item.displayName}}</el-checkbox>
-        </el-col>
-      </el-row>-->
-      <el-table :data="deviceMapData" stripe border style="width: 100%">
+      <el-table
+        :data="deviceMapData"
+        stripe
+        border
+        style="width: 100%"
+        @selection-change="handleSelectionChange"
+      >
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="displayName" label="监测数据项"></el-table-column>
         <el-table-column prop="deviceName" label="所属设备"></el-table-column>
@@ -126,7 +123,8 @@ import {
   getDeviceList,
   getdisplayList,
   bindDevice,
-  getDisplayId
+  getDisplayId,
+  removeDisplayId
 } from "@/api/ele";
 import { mapGetters } from "vuex";
 export default {
@@ -138,6 +136,8 @@ export default {
       checkDisplay: [],
       deviceMapData: [],
       checkDeviceMapData: [],
+      checkDisplayIds: [],
+      deviceIds: [],
       selectRadio: "",
       deviceRadio: "",
       monitoringVisible: false,
@@ -170,9 +170,16 @@ export default {
       this.monitoringVisible = true;
     },
     async initDeviceList(pageNum, pageSize) {
+      const { deviceList = [] } = this.selectRadio;
+      const devId = deviceList.map(item => {
+        return item.deviceId;
+      });
+      const notId = devId.join(",");
+      console.log(notId);
       const params = {
         pageNum,
-        pageSize
+        pageSize,
+        notId
       };
       const data = await getDeviceList(params);
       console.log(data);
@@ -192,9 +199,9 @@ export default {
       }
       console.log(this.displayList);
     },
-    async initDisplayId(val) {
+    async initDisplayId(val, monitoringId) {
       console.log(val);
-      const data = await getDisplayId({ deviceId: val });
+      const data = await getDisplayId({ deviceId: val, monitoringId });
       this.deviceMapData = data.data;
       console.log(data);
     },
@@ -224,6 +231,8 @@ export default {
           type: "success"
         });
         this.monitoringVisible = false;
+      } else if (code == 20002) {
+        this.$message.error("监测点名称重复，请更换名称");
       } else {
         this.$message.error("添加失败");
       }
@@ -253,7 +262,30 @@ export default {
       console.log(this.selectRadio);
       this.deviceVisible = true;
     },
-    removeDevice() {},
+    removeDevice() {
+      console.log(this.checkDisplayIds);
+      if (this.checkDisplayIds.length == 0) {
+        this.$message.error("请选择数据项");
+        return;
+      }
+      const params = {
+        id: JSON.stringify(this.checkDisplayIds)
+      };
+      this.$confirm("此操作将永久删除该数据项, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        removeDisplayId(params).then(res => {
+          console.log(res);
+          this.selectChange(this.deviceIds);
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
+        });
+      });
+    },
     searchDevice() {
       this.initDeviceList(0, 10);
       this.deviceRadio = "";
@@ -277,6 +309,10 @@ export default {
     },
     async saveMonitoring() {
       // 保存设备
+      if (!this.formDevice.name) {
+        this.$message.error("请选择设备");
+        return;
+      }
       console.log(this.checkDisplay);
       const params = {
         uid: this.uid,
@@ -287,6 +323,16 @@ export default {
       };
       console.log(params);
       const data = await bindDevice(params);
+      this.getMonitoring();
+      this.formDevice = {
+        name: "",
+        type: ""
+      };
+      this.$message({
+        type: "success",
+        message: "新增成功!"
+      });
+      this.displayList = [];
       this.deviceVisible = false;
     },
     parsingDevice(device) {
@@ -299,11 +345,21 @@ export default {
       return arr.join("，");
     },
     selectChange(val) {
+      this.deviceIds = val;
+      const { id } = val;
+      console.log(11111, id);
       const deviceIds = val.deviceList.map(item => {
-        console.log(item);
         return item.deviceId;
       });
-      this.initDisplayId(deviceIds.join(","));
+      this.initDisplayId(deviceIds.join(","), id);
+    },
+    handleSelectionChange(val) {
+      const ids = val.map(item => {
+        return item.mapId;
+      });
+      this.checkDisplayIds = ids;
+
+      console.log(val);
     }
   }
 };
