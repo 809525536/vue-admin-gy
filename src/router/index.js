@@ -30,8 +30,7 @@ import Layout from '@/layout'
  * a base page that does not have permission requirements
  * all roles can be accessed
  */
-export const constantRoutes = [
-  {
+export const constantRoutes = [{
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
@@ -48,31 +47,45 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/safetyMonitor/area',
     name: '安全监控中心',
-    meta: { title: '安全监控中心', icon: 'dashboard' },
-    children: [
-      {
+    meta: {
+      title: '安全监控中心',
+      icon: 'dashboard'
+    },
+    children: [{
         path: '/safetyMonitor/area',
         name: '区域安全监控',
         component: () => import('@/views/safetyMonitor/index'),
-        meta: { title: '区域安全监控', icon: 'dashboard' }
+        meta: {
+          title: '区域安全监控',
+          icon: 'dashboard'
+        }
       },
       {
         path: '/safetyMonitor/electricSafety',
         name: '用电监测点配置',
         component: () => import('@/views/electricSafety/index'),
-        meta: { title: '用电监测点配置', icon: 'dashboard' }
+        meta: {
+          title: '用电监测点配置',
+          icon: 'dashboard'
+        }
       },
       {
         path: '/safetyMonitor/warning',
         name: '报警统计分析',
         component: () => import('@/views/warning/index'),
-        meta: { title: '报警统计分析', icon: 'dashboard' }
+        meta: {
+          title: '报警统计分析',
+          icon: 'dashboard'
+        }
       },
       {
         path: '/safetyMonitor/advanceWarning',
         name: '预告警管理',
         component: () => import('@/views/advanceWarning/index'),
-        meta: { title: '预告警管理', icon: 'dashboard' }
+        meta: {
+          title: '预告警管理',
+          icon: 'dashboard'
+        }
       },
     ]
   },
@@ -82,19 +95,27 @@ export const constantRoutes = [
     component: Layout,
     name: '能源管理中心',
     redirect: '/energy/comprehensiveEnergy',
-    meta: { title: '预告警管理', icon: 'el-icon-s-opportunity' },
-    children: [
-      {
+    meta: {
+      title: '预告警管理',
+      icon: 'el-icon-s-opportunity'
+    },
+    children: [{
         path: '/energy/comprehensiveEnergy',
         name: '综合用能管理',
         component: () => import('@/views/comprehensiveEnergy/index'),
-        meta: { title: '综合用能管理', icon: 'el-icon-s-opportunity' }
+        meta: {
+          title: '综合用能管理',
+          icon: 'el-icon-s-opportunity'
+        }
       },
       {
         path: '/energy/electricityManagement',
         name: '用电管理',
         component: () => import('@/views/electricityManagement/index'),
-        meta: { title: '用电管理', icon: 'el-icon-s-opportunity' }
+        meta: {
+          title: '用电管理',
+          icon: 'el-icon-s-opportunity'
+        }
       }
     ]
   },
@@ -116,19 +137,56 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
-    children: [
-      {
+    meta: {
+      title: 'Example',
+      icon: 'el-icon-s-help'
+    },
+    children: [{
         path: 'table',
         name: 'Table',
         component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        meta: {
+          title: 'Table',
+          icon: 'table'
+        }
       },
       {
         path: 'tree',
         name: 'Tree',
         component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        meta: {
+          title: 'Tree',
+          icon: 'tree'
+        }
+      }
+    ]
+  },
+
+  {
+    path: '/eleReport',
+    name: '用电量报表',
+    meta: {
+      title: '用电量报表',
+      icon: 'form'
+    },
+    component: Layout,
+    children: [{
+        path: 'day',
+        name: '用电报表',
+        component: () => import('@/views/eleReport/day'),
+        meta: {
+          title: '日用电量报表',
+          icon: 'form'
+        }
+      },
+      {
+        path: 'month',
+        name: '用电报表',
+        component: () => import('@/views/eleReport/month'),
+        meta: {
+          title: '月用电量报表',
+          icon: 'form'
+        }
       }
     ]
   },
@@ -136,14 +194,15 @@ export const constantRoutes = [
   {
     path: '/form',
     component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+    children: [{
+      path: 'index',
+      name: 'Form',
+      component: () => import('@/views/form/index'),
+      meta: {
+        title: 'Form',
+        icon: 'form'
       }
-    ]
+    }]
   },
 
   {
@@ -155,36 +214,43 @@ export const constantRoutes = [
       title: 'Nested',
       icon: 'nested'
     },
-    children: [
-      {
+    children: [{
         path: 'menu1',
         component: () => import('@/views/nested/menu1/index'), // Parent router-view
         name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
+        meta: {
+          title: 'Menu1'
+        },
+        children: [{
             path: 'menu1-1',
             component: () => import('@/views/nested/menu1/menu1-1'),
             name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
+            meta: {
+              title: 'Menu1-1'
+            }
           },
           {
             path: 'menu1-2',
             component: () => import('@/views/nested/menu1/menu1-2'),
             name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
+            meta: {
+              title: 'Menu1-2'
+            },
+            children: [{
                 path: 'menu1-2-1',
                 component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
                 name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
+                meta: {
+                  title: 'Menu1-2-1'
+                }
               },
               {
                 path: 'menu1-2-2',
                 component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
                 name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
+                meta: {
+                  title: 'Menu1-2-2'
+                }
               }
             ]
           },
@@ -192,7 +258,9 @@ export const constantRoutes = [
             path: 'menu1-3',
             component: () => import('@/views/nested/menu1/menu1-3'),
             name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
+            meta: {
+              title: 'Menu1-3'
+            }
           }
         ]
       },
@@ -200,7 +268,9 @@ export const constantRoutes = [
         path: 'menu2',
         component: () => import('@/views/nested/menu2/index'),
         name: 'Menu2',
-        meta: { title: 'menu2' }
+        meta: {
+          title: 'menu2'
+        }
       }
     ]
   },
@@ -208,21 +278,28 @@ export const constantRoutes = [
   {
     path: 'external-link',
     component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+    children: [{
+      path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+      meta: {
+        title: 'External Link',
+        icon: 'link'
       }
-    ]
+    }]
   },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true
+  }
 ]
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({
+    y: 0
+  }),
   routes: constantRoutes
 })
 
