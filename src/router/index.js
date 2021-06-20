@@ -31,268 +31,306 @@ import Layout from '@/layout'
  * all roles can be accessed
  */
 export const constantRoutes = [{
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true
-  },
+  path: '/login',
+  component: () => import('@/views/login/index'),
+  hidden: true
+},
 
-  {
-    path: '/404',
-    component: () => import('@/views/404'),
-    hidden: true
-  },
+{
+  path: '/404',
+  component: () => import('@/views/404'),
+  hidden: true
+},
 
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/safetyMonitor/area',
-    name: '安全监控中心',
+{
+  path: '/',
+  component: Layout,
+  redirect: '/safetyMonitor/area',
+  name: '安全监控中心',
+  meta: {
+    title: '安全监控中心',
+    icon: 'dashboard'
+  },
+  children: [{
+    path: '/safetyMonitor/area',
+    name: '区域安全监控',
+    component: () => import('@/views/safetyMonitor/index'),
     meta: {
-      title: '安全监控中心',
+      title: '区域安全监控',
       icon: 'dashboard'
-    },
-    children: [{
-        path: '/safetyMonitor/area',
-        name: '区域安全监控',
-        component: () => import('@/views/safetyMonitor/index'),
-        meta: {
-          title: '区域安全监控',
-          icon: 'dashboard'
-        }
-      },
-      {
-        path: '/safetyMonitor/electricSafety',
-        name: '用电监测点配置',
-        component: () => import('@/views/electricSafety/index'),
-        meta: {
-          title: '用电监测点配置',
-          icon: 'dashboard'
-        }
-      },
-      {
-        path: '/safetyMonitor/warning',
-        name: '报警统计分析',
-        component: () => import('@/views/warning/index'),
-        meta: {
-          title: '报警统计分析',
-          icon: 'dashboard'
-        }
-      },
-      {
-        path: '/safetyMonitor/advanceWarning',
-        name: '预告警管理',
-        component: () => import('@/views/advanceWarning/index'),
-        meta: {
-          title: '预告警管理',
-          icon: 'dashboard'
-        }
-      },
-    ]
+    }
   },
-
   {
-    path: '/energy',
-    component: Layout,
-    name: '能源管理中心',
-    redirect: '/energy/comprehensiveEnergy',
+    path: '/safetyMonitor/electricSafety',
+    name: '用电监测点配置',
+    component: () => import('@/views/electricSafety/index'),
+    meta: {
+      title: '用电监测点配置',
+      icon: 'dashboard'
+    }
+  },
+  {
+    path: '/safetyMonitor/warning',
+    name: '报警统计分析',
+    component: () => import('@/views/warning/index'),
+    meta: {
+      title: '报警统计分析',
+      icon: 'dashboard'
+    }
+  },
+  {
+    path: '/safetyMonitor/advanceWarning',
+    name: '预告警管理',
+    component: () => import('@/views/advanceWarning/index'),
     meta: {
       title: '预告警管理',
+      icon: 'dashboard'
+    }
+  },
+  ]
+},
+
+{
+  path: '/energy',
+  component: Layout,
+  name: '能源管理中心',
+  redirect: '/energy/comprehensiveEnergy',
+  meta: {
+    title: '预告警管理',
+    icon: 'el-icon-s-opportunity'
+  },
+  children: [{
+    path: '/energy/comprehensiveEnergy',
+    name: '综合用能管理',
+    component: () => import('@/views/comprehensiveEnergy/index'),
+    meta: {
+      title: '综合用能管理',
       icon: 'el-icon-s-opportunity'
-    },
-    children: [{
-        path: '/energy/comprehensiveEnergy',
-        name: '综合用能管理',
-        component: () => import('@/views/comprehensiveEnergy/index'),
-        meta: {
-          title: '综合用能管理',
-          icon: 'el-icon-s-opportunity'
-        }
-      },
-      {
-        path: '/energy/electricityManagement',
-        name: '用电管理',
-        component: () => import('@/views/electricityManagement/index'),
-        meta: {
-          title: '用电管理',
-          icon: 'el-icon-s-opportunity'
-        }
-      }
-    ]
+    }
   },
-
-  // {
-  //   path: '/dashboard',
-  //   component: Layout,
-  //   redirect: '/dashboard',
-  //   children: [{
-  //     path: 'dashboard',
-  //     name: 'Dashboard',
-  //     component: () => import('@/views/dashboard/index'),
-  //     meta: { title: 'Dashboard', icon: 'dashboard' }
-  //   }]
-  // },
-
   {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
+    path: '/energy/electricityManagement',
+    name: '用电管理',
+    component: () => import('@/views/electricityManagement/index'),
     meta: {
-      title: 'Example',
-      icon: 'el-icon-s-help'
-    },
-    children: [{
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: {
-          title: 'Table',
-          icon: 'table'
-        }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: {
-          title: 'Tree',
-          icon: 'tree'
-        }
-      }
-    ]
-  },
-
-  {
-    path: '/eleReport',
-    name: '用电量报表',
-    meta: {
-      title: '用电量报表',
-      icon: 'form'
-    },
-    component: Layout,
-    children: [{
-        path: 'day',
-        name: '用电报表',
-        component: () => import('@/views/eleReport/day'),
-        meta: {
-          title: '日用电量报表',
-          icon: 'form'
-        }
-      },
-      {
-        path: 'month',
-        name: '用电报表',
-        component: () => import('@/views/eleReport/month'),
-        meta: {
-          title: '月用电量报表',
-          icon: 'form'
-        }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [{
-      path: 'index',
-      name: 'Form',
-      component: () => import('@/views/form/index'),
-      meta: {
-        title: 'Form',
-        icon: 'form'
-      }
-    }]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [{
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: {
-          title: 'Menu1'
-        },
-        children: [{
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: {
-              title: 'Menu1-1'
-            }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: {
-              title: 'Menu1-2'
-            },
-            children: [{
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: {
-                  title: 'Menu1-2-1'
-                }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: {
-                  title: 'Menu1-2-2'
-                }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: {
-              title: 'Menu1-3'
-            }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: {
-          title: 'menu2'
-        }
-      }
-    ]
-  },
-
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [{
-      path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-      meta: {
-        title: 'External Link',
-        icon: 'link'
-      }
-    }]
-  },
-
-  // 404 page must be placed at the end !!!
-  {
-    path: '*',
-    redirect: '/404',
-    hidden: true
+      title: '用电管理',
+      icon: 'el-icon-s-opportunity'
+    }
   }
+  ]
+},
+
+// {
+//   path: '/dashboard',
+//   component: Layout,
+//   redirect: '/dashboard',
+//   children: [{
+//     path: 'dashboard',
+//     name: 'Dashboard',
+//     component: () => import('@/views/dashboard/index'),
+//     meta: { title: 'Dashboard', icon: 'dashboard' }
+//   }]
+// },
+
+{
+  path: '/example',
+  component: Layout,
+  redirect: '/example/table',
+  name: 'Example',
+  meta: {
+    title: 'Example',
+    icon: 'el-icon-s-help'
+  },
+  children: [{
+    path: 'table',
+    name: 'Table',
+    component: () => import('@/views/table/index'),
+    meta: {
+      title: 'Table',
+      icon: 'table'
+    }
+  },
+  {
+    path: 'tree',
+    name: 'Tree',
+    component: () => import('@/views/tree/index'),
+    meta: {
+      title: 'Tree',
+      icon: 'tree'
+    }
+  }
+  ]
+},
+
+{
+  path: '/eleReport',
+  name: '用电量报表',
+  meta: {
+    title: '用电量报表',
+    icon: 'form'
+  },
+  component: Layout,
+  children: [{
+    path: 'day',
+    name: '用电报表',
+    component: () => import('@/views/eleReport/day'),
+    meta: {
+      title: '日用电量报表',
+      icon: 'form'
+    }
+  },
+  {
+    path: 'month',
+    name: '用电报表',
+    component: () => import('@/views/eleReport/month'),
+    meta: {
+      title: '月用电量报表',
+      icon: 'form'
+    }
+  }
+  ]
+},
+
+
+
+{
+  path: '/electricityAmountManagement',
+  component: Layout,
+  redirect: '/electricityAmountManagement/subManagement',
+  name: '用电管理',
+  meta: {
+    title: '用电管理',
+    icon: 'form'
+  },
+  children: [{
+    path: 'subManagement',
+    component: () => import('@/views/electricityAmountManagement/subManagement/subManagement/index.vue'), // Parent router-view
+    name: '分项用电管理',
+    meta: {
+      title: '分项用能管理',
+    },
+    children: [{
+      path: 'analysis',
+      name: '分析',
+      children: [{
+        path: 'analysis',
+        name: '分析',
+        component: () => import('@/views/electricityAmountManagement/subManagement/analysis/index.vue'),
+        meta: {
+          title: '分析',
+        }
+      }
+      ]
+    }
+    ]
+
+
+  }
+  ]
+},
+
+{
+  path: '/form',
+  component: Layout,
+  children: [{
+    path: 'index',
+    name: 'Form',
+    component: () => import('@/views/form/index'),
+    meta: {
+      title: 'Form',
+      icon: 'form'
+    }
+  }]
+},
+
+{
+  path: '/nested',
+  component: Layout,
+  redirect: '/nested/menu1',
+  name: 'Nested',
+  meta: {
+    title: 'Nested',
+    icon: 'nested'
+  },
+  children: [{
+    path: 'menu1',
+    component: () => import('@/views/nested/menu1/index'), // Parent router-view
+    name: 'Menu1',
+    meta: {
+      title: 'Menu1'
+    },
+    children: [{
+      path: 'menu1-1',
+      component: () => import('@/views/nested/menu1/menu1-1'),
+      name: 'Menu1-1',
+      meta: {
+        title: 'Menu1-1'
+      }
+    },
+    {
+      path: 'menu1-2',
+      component: () => import('@/views/nested/menu1/menu1-2'),
+      name: 'Menu1-2',
+      meta: {
+        title: 'Menu1-2'
+      },
+      children: [{
+        path: 'menu1-2-1',
+        component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
+        name: 'Menu1-2-1',
+        meta: {
+          title: 'Menu1-2-1'
+        }
+      },
+      {
+        path: 'menu1-2-2',
+        component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
+        name: 'Menu1-2-2',
+        meta: {
+          title: 'Menu1-2-2'
+        }
+      }
+      ]
+    },
+    {
+      path: 'menu1-3',
+      component: () => import('@/views/nested/menu1/menu1-3'),
+      name: 'Menu1-3',
+      meta: {
+        title: 'Menu1-3'
+      }
+    }
+    ]
+  },
+  {
+    path: 'menu2',
+    component: () => import('@/views/nested/menu2/index'),
+    name: 'Menu2',
+    meta: {
+      title: 'menu2'
+    }
+  }
+  ]
+},
+
+{
+  path: 'external-link',
+  component: Layout,
+  children: [{
+    path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+    meta: {
+      title: 'External Link',
+      icon: 'link'
+    }
+  }]
+},
+
+// 404 page must be placed at the end !!!
+{
+  path: '*',
+  redirect: '/404',
+  hidden: true
+}
 ]
 
 const createRouter = () => new Router({

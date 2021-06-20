@@ -69,3 +69,10 @@ export function removeDisplayId(params) {
     params
   })
 }
+export function getEleReport(params) {
+  return request({
+    url: '/electric/data/getEleReport',
+    method: 'get',
+    params
+  })
+}
