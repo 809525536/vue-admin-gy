@@ -168,7 +168,7 @@ export default {
     ...mapGetters(["uid"]),
   },
   mounted() {
-    this.search();
+    // this.search();
     // this.getNowTime();
   },
   methods: {
