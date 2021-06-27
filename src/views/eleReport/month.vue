@@ -35,7 +35,10 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>用电报表</span>
-        <el-button style="float: right; padding: 3px 0" type="text"
+        <el-button
+          @click="onExport"
+          style="float: right; padding: 3px 0"
+          type="text"
           >导出</el-button
         >
       </div>
@@ -77,11 +80,11 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-
       from: {
-        type:'month',
-        startTime: '',
-        endTime: '',
+        type: "month",
+        isExport: 0,
+        startTime: "",
+        endTime: "",
         uid: "",
       },
 
@@ -185,20 +188,20 @@ export default {
       this.$set(this.from, "startTime", defaultDate);
       this.$set(this.from, "endTime", defaultDate);
     },
-    getData(d){
-           return d.getFullYear() + '-' + (d.getMonth() + 1);
+    getData(d) {
+      return d.getFullYear() + "-" + (d.getMonth() + 1);
     },
     search() {
-      console.log(this.from)
+      console.log(this.from);
       if (this.from.startTime == null && this.from.endTime) {
         return this.messages("请填写开始时间");
       } else if (this.from.startTime && this.from.endTime == null) {
         return this.messages("请填写结束时间");
       }
-    //   if (this.from.startTime && this.from.endTime) {
-    //     this.from.startTime = this.getData(this.from.startTime);
-    //     this.from.endTime = this.getData(this.from.endTime);
-    //   }
+      //   if (this.from.startTime && this.from.endTime) {
+      //     this.from.startTime = this.getData(this.from.startTime);
+      //     this.from.endTime = this.getData(this.from.endTime);
+      //   }
       this.from.uid = this.uid;
       this.initData();
     },
@@ -208,9 +211,33 @@ export default {
         type: "warning",
       });
     },
+    async onExport() {
+      this.from.isExport = 1;
+      const res = await getEleReport(this.from, "blob");
+
+      // if (res.code == 20000) {
+
+      // }
+      const content = res; //后台返回二进制数据
+      const blob = new Blob([content]);
+      const fileName = "楼宇列表.xlsx";
+      if ("download" in document.createElement("a")) {
+        // 非IE下载
+        const elink = document.createElement("a");
+        elink.download = fileName;
+        elink.style.display = "none";
+        elink.href = URL.createObjectURL(blob);
+        document.body.appendChild(elink);
+        elink.click();
+        URL.revokeObjectURL(elink.href); // 释放URL 对象
+        document.body.removeChild(elink);
+      } else {
+        // IE10+下载
+        navigator.msSaveBlob(blob, fileName);
+      }
+    },
     async initData() {
-        console.log(this.from)
-      const res = await getEleReport(this.from);
+      const res = await getEleReport(this.from, "");
       if (res.code == 20000) {
         console.log(res);
         const { data } = res;

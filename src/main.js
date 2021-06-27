@@ -24,6 +24,12 @@ import { options } from 'runjs'
 import * as echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 
+import jm from 'vue-jsmind'
+Vue.use(jm)
+if (window.jsMind) {
+  Vue.prototype.jsMind = window.jsMind
+}
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

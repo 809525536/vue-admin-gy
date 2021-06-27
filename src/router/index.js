@@ -215,7 +215,7 @@ export const constantRoutes = [{
       children: [{
         path: 'analysis',
         name: '分析',
-        component: () => import('@/views/electricityAmountManagement/subManagement/analysis/index.vue'),
+        component: () => import('@/views/electricityAmountManagement/subManagement/subManagement/index.vue'),
         meta: {
           title: '分析',
         }
@@ -223,11 +223,52 @@ export const constantRoutes = [{
       ]
     }
     ]
-
-
   }
   ]
 },
+
+
+
+
+
+
+
+{
+  path: '/systemCenter',
+  component: Layout,
+  redirect: '/systemCenter/powerConfiguration',
+  name: '系统配置中心',
+  meta: {
+    title: '系统配置中心',
+    icon: 'form'
+  },
+  children: [{
+    path: 'powerConfiguration',
+    component: () => import('@/views/systemCenter/powerConfiguration/powerConfiguration/index.vue'), // Parent router-view
+    name: '用电配置',
+    meta: {
+      title: '用电配置',
+    },
+    children: [{
+      path: 'powerConfiguration',
+      name: '用电流向模型配置',
+      children: [{
+        path: 'powerConfiguration',
+        name: '用电流向模型配置',
+        component: () => import('@/views/systemCenter/powerConfiguration/powerConfiguration/index.vue'),
+        meta: {
+          title: '用电流向模型配置',
+        }
+      }
+      ]
+    }
+    ]
+  }
+  ]
+},
+
+
+
 
 {
   path: '/form',

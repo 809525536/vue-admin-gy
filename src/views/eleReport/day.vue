@@ -35,7 +35,10 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>用电报表</span>
-        <el-button style="float: right; padding: 3px 0" type="text"
+        <el-button
+          @click="onExport"
+          style="float: right; padding: 3px 0"
+          type="text"
           >导出</el-button
         >
       </div>
@@ -44,6 +47,8 @@
           :data="tableData1"
           style="width: 100%"
           row-key="id"
+          :summary-method="getSummaries"
+          show-summary
           border
           lazy
           :load="load"
@@ -78,7 +83,8 @@ export default {
   data() {
     return {
       from: {
-        type:'day',
+        type: "day",
+        isExport: 0,
         startTime: new Date(),
         endTime: new Date(),
         uid: "",
@@ -172,6 +178,32 @@ export default {
     // this.getNowTime();
   },
   methods: {
+    getSummaries(param) {
+      const { columns, data } = param;
+      const sums = [];
+      columns.forEach((column, index) => {
+        if (index === 0) {
+          sums[index] = "合计";
+          return;
+        }
+        const values = data.map((item) => Number(item[column.property]));
+        if (!values.every((value) => isNaN(value))) {
+          sums[index] = values.reduce((prev, curr) => {
+            const value = Number(curr);
+            if (!isNaN(value)) {
+              return prev + curr;
+            } else {
+              return prev;
+            }
+          }, 0);
+          // sums[index] += ' 元';
+        } else {
+          sums[index] = "N/A";
+        }
+      });
+
+      return sums;
+    },
     getNowTime() {
       var now = new Date();
       var year = now.getFullYear(); //得到年份
@@ -207,8 +239,33 @@ export default {
         type: "warning",
       });
     },
+    async onExport() {
+      this.from.isExport = 1;
+      const res = await getEleReport(this.from, "blob");
+
+      // if (res.code == 20000) {
+
+      // }
+      const content = res; //后台返回二进制数据
+      const blob = new Blob([content]);
+      const fileName = "楼宇列表.xlsx";
+      if ("download" in document.createElement("a")) {
+        // 非IE下载
+        const elink = document.createElement("a");
+        elink.download = fileName;
+        elink.style.display = "none";
+        elink.href = URL.createObjectURL(blob);
+        document.body.appendChild(elink);
+        elink.click();
+        URL.revokeObjectURL(elink.href); // 释放URL 对象
+        document.body.removeChild(elink);
+      } else {
+        // IE10+下载
+        navigator.msSaveBlob(blob, fileName);
+      }
+    },
     async initData() {
-      const res = await getEleReport(this.from);
+      const res = await getEleReport(this.from, "");
       if (res.code == 20000) {
         console.log(res);
         const { data } = res;
