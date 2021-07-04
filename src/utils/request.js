@@ -4,8 +4,8 @@ import store from '@/store'
 import { getToken } from '@/utils/auth'
 
 console.log(process.env)
-// const baseUrl = process.env.NODE_ENV == 'development' ? 'http://localhost:3000/' : 'http://123.57.51.103:8088/'
-const baseUrl = process.env.NODE_ENV == 'development' ? 'http://192.168.3.4:3000/' : 'http://123.57.51.103:8088/'
+const baseUrl = process.env.NODE_ENV == 'development' ? 'http://localhost:3000/' : 'http://123.57.51.103:8088/'
+// const baseUrl = process.env.NODE_ENV == 'development' ? 'http://192.168.3.4:3000/' : 'http://123.57.51.103:8088/'
 // create an axios instance
 const service = axios.create({
   // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
