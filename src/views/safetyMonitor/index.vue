@@ -230,14 +230,35 @@ export default {
       if (this.eleData) {
         console.log(1111, this.eleData);
         this.eleData.sums = this.eleData.sums.reverse();
+        const mySums = this.eleData.sums;
         this.eleData.sums.map((item, index) => {
           if (item.datas.length == 2) {
-            const feng = Math.floor(item.datas[0].maxNum);
-            const ping = Math.floor(
-              (item.datas[0].maxNum - item.datas[0].maxNum) / 2 +
-                item.datas[0].maxNum
-            );
-            const gu = Math.floor(item.datas[1].maxNum);
+            let feng = Math.floor(item.datas[0].maxNum - item.datas[1].maxNum);
+            if (item.datas[1].maxNum <= 0) feng = 0;
+            console.log(">>>>>feng", feng);
+            console.log(item);
+            // const ping = Math.floor(
+            //   (item.datas[0].maxNum - item.datas[0].maxNum) / 2 +
+            //     item.datas[0].maxNum
+            // );
+            // const gu = Math.floor(item.datas[1].maxNum - item.datas[1].maxNum);
+            console.log(index);
+            let gu = 0;
+            if (!mySums[index - 1].datas[0].maxNum) {
+              gu = 135;
+            } else {
+              console.log("<<<<<");
+              gu = item.datas[1].maxNum - mySums[index - 1].datas[1].maxNum;
+              if (mySums[index - 1].datas[1].maxNum <= 0) gu = 0;
+            }
+            if (item.datas[1].maxNum <= 0) gu = 0;
+            const ping = Math.floor((feng + gu) / 2);
+            // const gu = this.eleData.sums[index - 1]
+            //   ? item.datas[0].maxNum -
+            //     this.eleData.sums[index - 1].datas[1].maxNum
+            //   : 1;
+            console.log(">>>>>>>>>gu", gu);
+
             seriesOne.push(feng);
             seriesTwo.push(ping);
             seriesThere.push(gu);
