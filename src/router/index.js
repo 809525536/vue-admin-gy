@@ -263,6 +263,30 @@ export const constantRoutes = [{
     ]
   },
 
+  {
+    path: '管理页面',
+    component: Layout,
+    children: [{
+      path: 'http://123.57.51.103:7078/gateway/index.html',
+      meta: {
+        title: '管理页面',
+        icon: 'link'
+      }
+    }]
+  },
+
+  {
+    path: '管理系统',
+    component: Layout,
+    children: [{
+      path: 'http://123.57.51.103:7077/device/view/index.html',
+      meta: {
+        title: '管理系统',
+        icon: 'link'
+      }
+    }]
+  },
+
 
 
 
