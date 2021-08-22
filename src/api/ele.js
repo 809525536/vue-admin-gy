@@ -59,7 +59,7 @@ export function getDisplayId(params) {
   return request({
     url: '/electric/data/getDisplayId',
     method: 'get',
-    
+
     params
   })
 }
@@ -70,20 +70,29 @@ export function removeDisplayId(params) {
     params
   })
 }
-export function getEleReport(params,blob) {
-  if(blob){
+export function getEleReport(params, blob) {
+  if (blob) {
     return request({
       url: '/electric/data/getEleReport',
       method: 'get',
       responseType: blob, //必须要加上，转为blob类型
       params
     })
-  }else{
+  } else {
     return request({
       url: '/electric/data/getEleReport',
       method: 'get',
       params
     })
   }
-  
+
+}
+
+export function overview(params) {
+  return request({
+    url: '/api/electric/overview',
+    method: 'get',
+    domain: 'go',
+    params
+  })
 }

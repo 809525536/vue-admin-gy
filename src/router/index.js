@@ -269,7 +269,7 @@ export const constantRoutes = [{
     children: [{
       path: 'http://123.57.51.103:7078/gateway/index.html',
       meta: {
-        title: '管理页面',
+        title: '网关管理系统',
         icon: 'link'
       }
     }]
@@ -281,7 +281,7 @@ export const constantRoutes = [{
     children: [{
       path: 'http://123.57.51.103:7077/device/view/index.html',
       meta: {
-        title: '管理系统',
+        title: '物联网管理系统',
         icon: 'link'
       }
     }]

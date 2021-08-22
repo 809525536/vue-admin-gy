@@ -80,7 +80,7 @@
 <script>
 // const net = require('net');
 import { getEleData } from "@/mock/index";
-import { getEleDetail } from "@/api/ele";
+import { getEleDetail, overview } from "@/api/ele";
 import { mapGetters } from "vuex";
 export default {
   name: "test",
@@ -205,6 +205,8 @@ export default {
       });
     },
     async initData() {
+      const tData = await overview();
+      console.log("aaaaa", tData);
       const eleData = await getEleDetail({ uid: this.uid });
       if (eleData.code == 20000) {
         this.eleData = eleData.data;
@@ -216,17 +218,6 @@ export default {
       let fengTotal = 0;
       let pingTotal = 0;
       let guTotal = 0;
-      // const { barData } = getEleData.data;
-      // barData.map((item, index) => {
-      //   // console.log(item)
-      //   seriesOne.push(item["峰"]);
-      //   seriesTwo.push(item["平"]);
-      //   seriesThere.push(item["谷"]);
-      //   fengTotal += Number(item["平"]);
-      //   pingTotal += Number(item["峰"]);
-      //   guTotal += Number(item["谷"]);
-      //   time.push(item.time);
-      // });
       if (this.eleData) {
         console.log(1111, this.eleData);
         this.eleData.sums = this.eleData.sums.reverse();

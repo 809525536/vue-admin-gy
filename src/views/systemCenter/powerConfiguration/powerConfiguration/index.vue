@@ -12,7 +12,7 @@
         </span>
 
         <div class="searchCondition">
-          <el-button class="DatSearch" size="small" plain>保存</el-button>
+          <el-button class="DatSearch" size="small" plain @click="saveData">保存</el-button>
           <el-button type="primary" @click="search" class="DatSearch" size="small">连线</el-button>
         </div>
       </div>
@@ -61,7 +61,7 @@
             <span>关联监测点</span>
           </li>
 
-          <li @click="deviceContext();">
+          <li @click="deviceContext">
             <!-- <em class="iconfont">&#xe618;</em> -->
             <span>关联设备</span>
           </li>
@@ -474,6 +474,9 @@ export default {
     },
     //关联设备
     deviceContext() {
+      // console.log(val);
+      var selected_node = this.jm.get_selected_node();
+      console.log(selected_node);
       this.contextDialogVisible = true;
     },
     //显示备注
@@ -681,6 +684,10 @@ export default {
         message: mes,
         type: "warning"
       });
+    },
+    saveData() {
+      console.log(this.jm.get_data("node_array"));
+      console.log(this.jm.get_meta());
     }
   }
 };

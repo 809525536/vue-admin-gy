@@ -1,7 +1,12 @@
 import axios from 'axios'
-import { MessageBox, Message } from 'element-ui'
+import {
+  MessageBox,
+  Message
+} from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+import {
+  getToken
+} from '@/utils/auth'
 
 console.log(process.env)
 const baseUrl = process.env.NODE_ENV == 'development' ? 'http://localhost:3000/' : 'http://123.57.51.103:8088/'
@@ -18,8 +23,14 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
+    const {
+      domain
+    } = config
+    if (domain == 'go') {
+      config.baseURL = 'http://123.57.51.103:7180/'
+    }
     // do something before request is sent
-
+    console.log(config)
     if (store.getters.token) {
       // let each request carry token
       // ['X-Token'] is a custom headers key
@@ -40,7 +51,7 @@ service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
    * Please return  response => response
-  */
+   */
 
   /**
    * Determine the request status by custom code
